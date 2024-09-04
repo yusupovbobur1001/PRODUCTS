@@ -1,0 +1,27 @@
+syntax="proto3";
+
+package  auth_service;
+option  go_package="genproto/auth_service";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "user_common.proto";
+
+message  User {
+    string id = 1;
+    string user_name = 2;
+    string email = 3;
+    string password_hash = 4;
+    string role = 5;
+    google.protobuf.Timestamp created_at =6;
+    google.protobuf.Timestamp updated_at =7;
+}
+message  GetAllUsersResponse{
+    repeated User users=1;
+}
+
+service  UserService{
+    rpc GetUser(PrimaryKey)returns(User);
+    rpc GetAllUsers(GetListRequest)returns(GetAllUsersResponse);
+    rpc DeleteUser(PrimaryKey)returns(google.protobuf.Empty);
+    rpc UpdateUser(User)returns(User);
+}
