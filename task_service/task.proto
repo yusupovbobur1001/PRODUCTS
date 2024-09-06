@@ -1,0 +1,32 @@
+syntax="proto3";
+
+option go_package="genproto/task_service";
+import  "task_common.proto";
+import  "google/protobuf/empty.proto";
+
+package  task_service;
+
+
+
+message  Task {
+   string  id=1;
+   string  user_id=2;
+   string  title=3;
+   string  created_at=4;
+   string  updated_at=5;
+}
+message  TaskRequest{
+  string  user_id=1;
+  string  title=2;
+}
+message  TasksResponse{
+  repeated Task tasks=1;
+   int64  count=2;
+}
+service  TaskService{
+  rpc CreateTask(TaskRequest)returns(Task);
+  rpc UpdateTask(Task)returns(Task);
+  rpc GetTask(PrimaryKey)returns(Task);
+  rpc GetAllTasks(GetListRequest)returns(TasksResponse);
+  rpc DeleteTask(PrimaryKey)returns(google.protobuf.Empty);
+}

@@ -1,0 +1,33 @@
+syntax="proto3";
+
+option go_package="genproto/task_service";
+import  "task_common.proto";
+import  "google/protobuf/empty.proto";
+package  task_service;
+
+message Detail{
+  string  id=1;
+  string  task_id=2;
+  string  description=3;
+  string  status=4;
+  string  priority=5;
+  string  created_at=6;
+  string  updated_at=7;
+}
+message  DetailRequest{
+  string  task_id=1;
+  string  description=2;
+  string  status=3;
+  string  priority=4;
+}
+message  DetailResponse{
+  repeated  Detail details=1;
+  int64  count=2;
+}
+service  DetailService{
+   rpc CreateDetail(DetailRequest)returns(Detail);
+   rpc UpdateDetail(Detail)returns(Detail);
+   rpc DeleteDetail(PrimaryKey)returns(google.protobuf.Empty);
+   rpc GetDetail(PrimaryKey)returns(Detail);
+   rpc GetAllDetail(GetListRequest)returns(DetailResponse);
+}
